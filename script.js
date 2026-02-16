@@ -1,7 +1,7 @@
-// Initialize Swiper with autoplay only
+// Initialize Swiper
 document.addEventListener('DOMContentLoaded', function() {
-    if (document.querySelector('.workSwiper')) {
-        const workSwiper = new Swiper('.workSwiper', {
+    if (document.querySelector('.portfolioSwiper')) {
+        new Swiper('.portfolioSwiper', {
             slidesPerView: 1,
             spaceBetween: 0,
             loop: true,
@@ -19,21 +19,15 @@ document.addEventListener('DOMContentLoaded', function() {
                 prevEl: '.swiper-button-prev',
             },
             grabCursor: true,
-            touchRatio: 1,
             speed: 600,
-            effect: 'slide',
         });
     }
 
-    // Add reveal class to elements for scroll animation
-    const elementsToReveal = document.querySelectorAll(
-        '.stat-item, .service-card, .expertise-card, .distinction-card, .contact-item, .section-title'
-    );
-    elementsToReveal.forEach(el => el.classList.add('reveal'));
+    // Reveal animation on scroll
+    const reveals = document.querySelectorAll('.stat-card, .service-card, .expertise-card, .distinction-card, .contact-icon, .section-title');
+    reveals.forEach(el => el.classList.add('reveal'));
 
-    // Reveal on scroll function
     function revealOnScroll() {
-        const reveals = document.querySelectorAll('.reveal');
         const windowHeight = window.innerHeight;
         const revealPoint = 150;
         reveals.forEach(el => {
@@ -47,18 +41,13 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('scroll', revealOnScroll);
     revealOnScroll();
 
-    // ===== Smooth scroll for navigation links =====
-    const navLinks = document.querySelectorAll('nav a[href^="#"]');
-    navLinks.forEach(link => {
+    // Smooth scroll for navigation links
+    document.querySelectorAll('nav a[href^="#"]').forEach(link => {
         link.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href');
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                targetElement.scrollIntoView({
-                    behavior: 'smooth',
-                    block: 'start'
-                });
+            const target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
             }
         });
     });
